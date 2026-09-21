@@ -154,6 +154,23 @@
 
   .empty { color: var(--muted); font-size: 13px; padding: 14px 2px; }
 
+  .sync-toggle {
+    background: none; border: none; color: var(--muted); font-family: "Fraunces", serif;
+    font-size: 14px; padding: 0 0 10px; cursor: pointer;
+  }
+  .install-panel {
+    background: var(--paper); border: 1px solid var(--border); border-radius: 4px; padding: 14px 16px;
+  }
+  .install-tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+  .install-tab {
+    background: transparent; border: 1px solid var(--border); color: var(--muted);
+    border-radius: 3px; padding: 6px 10px; font-size: 11px; font-family: inherit;
+  }
+  .install-tab.active { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .install-steps { margin: 0; padding-left: 20px; font-size: 12.5px; line-height: 1.8; color: var(--ink); }
+  .install-steps strong { color: var(--accent); }
+  .install-note { font-size: 11.5px; color: var(--muted); margin: 12px 0 0; }
+
   footer.note {
     margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--border);
     font-size: 11.5px; line-height: 1.7; color: var(--muted);
@@ -243,6 +260,33 @@
     <section class="group" id="masteredSection" style="display:none;">
       <h2>Mastered</h2>
       <ul class="rows" id="listMastered"></ul>
+    </section>
+
+    <section class="group" id="installSection">
+      <button type="button" class="sync-toggle" id="installToggle">Add to your home screen ▾</button>
+      <div class="install-panel" id="installPanel" style="display:none;">
+        <div class="install-tabs">
+          <button type="button" class="install-tab active" data-tab="iphone">iPhone / iPad</button>
+          <button type="button" class="install-tab" data-tab="android">Android</button>
+          <button type="button" class="install-tab" data-tab="desktop">PC / Mac</button>
+        </div>
+        <ol class="install-steps" id="tab-iphone">
+          <li>Open this page in <strong>Safari</strong> (not Chrome — iOS requires Safari for this).</li>
+          <li>Tap the <strong>Share</strong> icon (square with an arrow pointing up), in the bottom toolbar.</li>
+          <li>Scroll down and tap <strong>Add to Home Screen</strong>, then tap <strong>Add</strong>.</li>
+        </ol>
+        <ol class="install-steps" id="tab-android" style="display:none;">
+          <li>Open this page in <strong>Chrome</strong>.</li>
+          <li>Tap the <strong>⋮</strong> menu (top right), then tap <strong>Add to Home screen</strong> (or you may see an <strong>Install app</strong> banner — tap that instead).</li>
+          <li>Confirm by tapping <strong>Add</strong> / <strong>Install</strong>.</li>
+        </ol>
+        <ol class="install-steps" id="tab-desktop" style="display:none;">
+          <li>Open this page in <strong>Chrome</strong> or <strong>Edge</strong>.</li>
+          <li>Click the <strong>install icon</strong> in the address bar (a small screen-with-arrow icon), or open the <strong>⋮</strong> menu and choose <strong>Install Review Ledger…</strong></li>
+          <li>Click <strong>Install</strong>. It'll open in its own window from then on.</li>
+        </ol>
+        <p class="install-note">Once installed, it opens full-screen like any other app — and still works without an internet connection.</p>
+      </div>
     </section>
 
     <footer class="note">

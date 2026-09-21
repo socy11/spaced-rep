@@ -1,37 +1,31 @@
-# Review Ledger — setup
+# Review Ledger
 
-## 1. Firebase (5 min)
-1. https://console.firebase.google.com → **Add project** → name it → skip Analytics.
-2. **Build → Firestore Database → Create database** → **production mode** → pick a nearby region.
-3. **Build → Firestore Database → Rules** tab → replace the contents with:
+A spaced-repetition study log for maths tutoring students. Log a topic the day you learn it, and the app schedules when to revise it again — at growing intervals so it sticks, rather than fading.
 
-   ```
-   rules_version = '2';
-   service cloud.firestore {
-     match /databases/{database}/documents {
-       match /students/{pin} {
-         allow read, write: if true;
-       }
-     }
-   }
-   ```
+Built and installs as a Progressive Web App: no app store, works offline, and syncs a student's log between their own devices via a personal sync code.
 
-   Click **Publish**. (See "About the sync code" below for what this trade-off means.)
+**Live app:** _add your GitHub Pages link here once deployed_
 
-4. **Project settings (gear icon) → General → Your apps → `</>` (Web)** → register an app (any nickname, don't need Firebase Hosting) → copy the `firebaseConfig` object it shows you.
-5. Paste those values into `firebase-config.js` in this folder, replacing the `PASTE_...` placeholders.
+## How it works
 
-## 2. Deploy on GitHub Pages (5 min)
-1. Create a new repo on GitHub (e.g. `review-ledger`), public.
-2. Upload every file in this folder to the repo root (keep the `icons/` folder structure).
-3. Repo → **Settings → Pages** → Source: **Deploy from a branch** → Branch: `main` / root → Save.
-4. GitHub gives you a URL like `https://yourname.github.io/review-ledger/` — that's the link to send students.
+Topics are reviewed at expanding intervals — 1, 3, 7, 14, 30, 60, then 90 days — based on Hermann Ebbinghaus's forgetting-curve research and the spaced intervals Piotr Woźniak derived from it for SuperMemo. The spacing effect itself (spaced practice outperforming cramming for long-term retention) is supported by Cepeda et al.'s 2006 meta-analysis in *Psychological Bulletin*.
 
-## 3. Give it to students
-Send them the GitHub Pages link. First time they open it, they'll be asked to create a sync code — that's what lets their phone and PC show the same log. On mobile, their browser will usually offer "Add to Home Screen"; that's what makes it feel like an installed app.
+## What's in this repo
 
-## About the sync code
-The code is **not a password** — it's just a shared key so a device knows whose log to load, similar to a locker combination. Anyone who has (or guesses) a student's code could see or edit that student's log. For a maths tutoring log with no sensitive personal data, that's a reasonable trade-off for zero-signup simplicity. If that ever stops being acceptable (e.g. you want real accounts), the next step up is adding Firebase Authentication — a bigger change, happy to help with that later if needed.
+| File | Purpose |
+|---|---|
+| `index.html` | App UI and structure |
+| `app.js` | App logic: scheduling, rendering, Firebase sync |
+| `firebase-config.js` | Firebase project connection details |
+| `manifest.json` | PWA metadata (name, icons, install behaviour) |
+| `service-worker.js` | Offline caching of the app shell |
+| `icons/` | App icons for home-screen install |
+| `SETUP.md` | Step-by-step Firebase + GitHub Pages setup, for anyone redeploying this |
 
-## Updating the app later
-Edit files locally, re-upload to GitHub (or `git push`), and GitHub Pages updates automatically within a minute or two. Bump `CACHE_NAME` in `service-worker.js` (e.g. `v2`) whenever you change files, so devices that already installed the app pick up the update.
+## Data & privacy
+
+Each student's log is stored in Firestore, keyed to a sync code they choose themselves — no accounts, no personal data collected beyond what a student types in. The code functions as a shared key rather than a password; see `SETUP.md` for details on that trade-off.
+
+## Credit
+
+This project was built with the assistance of Claude (Anthropic).

@@ -286,6 +286,44 @@ if (pin) {
   document.getElementById('pinBadge').textContent = 'Sync not set up';
 }
 
+// ---------- Install instructions ----------
+(function () {
+  var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  var section = document.getElementById('installSection');
+  if (isStandalone) {
+    // Already installed and running as an app — this section isn't useful.
+    if (section) section.style.display = 'none';
+    return;
+  }
+
+  var toggle = document.getElementById('installToggle');
+  var panel = document.getElementById('installPanel');
+  toggle.addEventListener('click', function () {
+    var open = panel.style.display !== 'none';
+    panel.style.display = open ? 'none' : 'block';
+    toggle.textContent = 'Add to your home screen ' + (open ? '▾' : '▴');
+  });
+
+  var tabs = document.querySelectorAll('.install-tab');
+  var panels = { iphone: document.getElementById('tab-iphone'), android: document.getElementById('tab-android'), desktop: document.getElementById('tab-desktop') };
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      Object.keys(panels).forEach(function (k) { panels[k].style.display = 'none'; });
+      panels[tab.getAttribute('data-tab')].style.display = 'block';
+    });
+  });
+
+  // Best-effort guess at platform to open the panel on the right tab by default.
+  var ua = navigator.userAgent || '';
+  var guess = /iPhone|iPad|iPod/.test(ua) ? 'iphone' : /Android/.test(ua) ? 'android' : 'desktop';
+  if (guess !== 'iphone') {
+    tabs.forEach(function (t) { t.classList.toggle('active', t.getAttribute('data-tab') === guess); });
+    Object.keys(panels).forEach(function (k) { panels[k].style.display = k === guess ? 'block' : 'none'; });
+  }
+})();
+
 // ---------- Service worker ----------
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
