@@ -1,6 +1,6 @@
 {
-  "name": "Review Ledger",
-  "short_name": "Ledger",
+  "name": "Spaced Reps",
+  "short_name": "Reps",
   "description": "Log what you learned. Get told when to revise it.",
   "start_url": "./index.html",
   "scope": "./",
