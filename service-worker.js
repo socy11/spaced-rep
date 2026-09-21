@@ -1,5 +1,5 @@
 // Bump this on every deploy that changes cached files, so clients pick up the update.
-const CACHE_NAME = 'review-ledger-v1';
+const CACHE_NAME = 'review-ledger-v2';
 
 const APP_SHELL = [
   './',
