@@ -1,4 +1,4 @@
-# Review Ledger
+# Spaced Reps
 
 A spaced-repetition study log for maths tutoring students. Log a topic the day you learn it and the app schedules when to revise it again.
 
