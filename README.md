@@ -4,7 +4,7 @@ A spaced-repetition study log for maths tutoring students. Log a topic the day y
 
 Built and installs as a Progressive Web App to work offline and syncs a student's log between their own devices via a personal sync code.
 
-**Live app:** _add your GitHub Pages link here once deployed_
+**Live app:** (https://socy11.github.io/spaced-rep/)
 
 ## How it works
 
