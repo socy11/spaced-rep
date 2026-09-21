@@ -1,8 +1,8 @@
 # Review Ledger
 
-A spaced-repetition study log for maths tutoring students. Log a topic the day you learn it, and the app schedules when to revise it again — at growing intervals so it sticks, rather than fading.
+A spaced-repetition study log for maths tutoring students. Log a topic the day you learn it and the app schedules when to revise it again.
 
-Built and installs as a Progressive Web App: no app store, works offline, and syncs a student's log between their own devices via a personal sync code.
+Built and installs as a Progressive Web App to work offline and syncs a student's log between their own devices via a personal sync code.
 
 **Live app:** _add your GitHub Pages link here once deployed_
 
